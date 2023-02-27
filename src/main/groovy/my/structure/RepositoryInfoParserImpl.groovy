@@ -26,4 +26,5 @@ class RepositoryInfoParserImpl implements RepositoryInfoParser {
         println("Parse finished")
         return repositoryInfoList;
     }
+
 }

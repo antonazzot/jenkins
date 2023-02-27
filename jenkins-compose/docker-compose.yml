@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  my-jenkins:
+    container_name: my-jenkins
+    restart: always
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    environment:
+      JENKINS_UI_URL: "http://localhost:5555"
+      JENKINS_JAVA_OPTIONS: "-Djava.awt.headless=true -Dmail.smtp.starttls.enable=true"
+      JENKINS_ARGS: "-Dmail.smtp.starttls.enable=true"
+      JENKINS_USERNAME: "admin"
+      JENKINS_PASSWORD: "admin"
+    ports:
+      - "5555:8080"
+      - "50000:50000"
+    volumes:
+      - type: bind
+        source: ../target/my-pipeline-library
+        target: /usr/share/my/my-pipeline-library
+    networks:
+      - my-jenkins-network
+
+networks:
+  my-jenkins-network:
+    name: my-jenkins-network

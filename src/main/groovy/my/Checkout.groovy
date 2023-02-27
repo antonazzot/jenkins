@@ -27,6 +27,16 @@ class Checkout {
         this.fileCreator = new FileCreator(param.script)
     }
 
+
+    List<GitWrapper> getPreparedGitWrappers (){
+        println("!!!!START PREPARATION!!!!!")
+        fileCreator.makeDir(parameters.workingDirectory)
+        repositoryInfos = parser.parse(parameters.gitInfo)
+        println("!!!!PREPARATION FINISHED!!!!!")
+        return mapToGitWrapper(repositoryInfos)
+    }
+
+
     @NonCPS
     void run() {
         try {
@@ -56,4 +66,5 @@ class Checkout {
 
         return gitWrapperList;
     }
+
 }

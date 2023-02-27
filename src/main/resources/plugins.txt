@@ -1,0 +1,8 @@
+blueocean:1.25.5
+filesystem_scm:2.1
+http_request:1.16
+job-dsl:1.81
+mask-passwords:3.3
+pipeline-stage-view:2.24
+pipeline-utility-steps:2.13.0
+file-operations:1.11

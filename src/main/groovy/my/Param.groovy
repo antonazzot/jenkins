@@ -35,6 +35,6 @@ class Param {
         }
         this.externalTaskId = externalTaskId
         this.language = language
-        this.workingDirectory = new File("/Users/Anton_Tsyrkunou/Documents/SomeProject/my-jenkins/my-jenkins/src/main/resources/workdir_")
+        this.workingDirectory = new File("/Users/Anton_Tsyrkunou/Documents/SomeProject/my-jenkins/my-jenkins/src/main/resources/gitcontent")
     }
 }
