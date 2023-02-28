@@ -15,18 +15,21 @@ class PlagiarismHandler {
 
     Script script
 
-    Param parameters
+    ParamPlagiarism parameters
+
+    String workDir;
 
     final String prefix = "/var/jenkins_home/workspace/myscript/*"
 
     PlagiarismHandler(Script script) {
         this.script = script
-        this.parameters = new Param(script)
+        this.parameters = new ParamPlagiarism(script)
     }
 
-    PlagiarismHandler(Param param) {
+    PlagiarismHandler(ParamPlagiarism param) {
         this.script = param.script
         this.parameters = param
+        this.workDir = parameters.workingDirectory.getPath()
     }
 
     void check() {
@@ -34,16 +37,17 @@ class PlagiarismHandler {
 
         def language =  LanguageOption.JAVA;
 
-        println("PATH TO SCAN IS : " + prefix + parameters.workingDirectory.getPath())
+        println("PATH TO SCAN IS : " + prefix + workDir)
 
-        JPlagOptions options = new JPlagOptions(prefix + parameters.workingDirectory.getPath(), language);
+        JPlagOptions options = new JPlagOptions(prefix + workDir, language);
         options.setMaximumNumberOfComparisons(-1);
+        options.setBaseCodeSubmissionName(workDir+"/basedir")
         options.setComparisonMode(ComparisonMode.PARALLEL);
         options.setVerbosity(Verbosity.LONG);
 
         JPlag jplag = new JPlag(options);
         JPlagResult result = jplag.run();
-        File reportDir = new File(parameters.workingDirectory.getPath()+"/result");
+        File reportDir = new File(workDir+"/result");
         Report report = new Report(reportDir, options);
         report.writeResult(result);
     }

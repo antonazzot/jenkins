@@ -23,4 +23,12 @@ class ReportSenderImpl implements my.reporter.ReportSender {
                 requestBody: data
     }
 
+    void sendReport(String url, String contentType, int amountOfWrappers) {
+        println("START SEND")
+        script.httpRequest url: url,
+                httpMode: 'POST',
+                contentType: contentType,
+                quiet: false,
+                requestBody: amountOfWrappers.toString()
+    }
 }

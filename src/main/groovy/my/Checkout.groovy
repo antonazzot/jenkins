@@ -2,7 +2,6 @@ package my
 
 import com.cloudbees.groovy.cps.NonCPS
 import my.structure.FileCreator
-import my.structure.RejectionException
 import my.structure.RepositoryInfo
 import my.structure.RepositoryInfoParser
 import my.structure.RepositoryInfoParserImpl
@@ -28,7 +27,7 @@ class Checkout {
     }
 
 
-    List<GitWrapper> getPreparedGitWrappers (){
+    List<GitWrapper> getPreparedGitWrappers() {
         println("!!!!START PREPARATION!!!!!")
         fileCreator.makeDir(parameters.workingDirectory)
         repositoryInfos = parser.parse(parameters.gitInfo)
@@ -36,23 +35,10 @@ class Checkout {
         return mapToGitWrapper(repositoryInfos)
     }
 
-
-    @NonCPS
-    void run() {
-        try {
-            fileCreator.makeDir(parameters.workingDirectory)
-            repositoryInfos = parser.parse(parameters.gitInfo)
-            println(repositoryInfos)
-            println("!!!!START REPO!!!!!")
-            List<GitWrapper> gitWrapperList = mapToGitWrapper(repositoryInfos)
-            println("!git wrapper was created!")
-            for (wraper in gitWrapperList) {
-                wraper.checkout()
-            }
-            println("!!!!REPOS WAS OBTAINED!!!!!")
-        } catch (Exception e) {
-            throw new RejectionException("Cannot checkout repository. Please make sure you have access to it.", e)
-        }
+    GitWrapper createBaseRepo() {
+//        fileCreator.makeDir(parameters.workingDirectory.getPath() + "/basedir")
+        def repoInfo = parser.parseSingle(parameters.gitBaseInfo)
+        return mapToGitWrapper(repoInfo)
     }
 
     @NonCPS
@@ -60,11 +46,18 @@ class Checkout {
 
         List<GitWrapper> gitWrapperList = new ArrayList<>();
 
-        for (repo in  repositoryInfos) {
+        println("Start wrapping")
+        for (repo in repositoryInfos) {
             gitWrapperList.add(new GitWrapper(script, parameters.workingDirectory.path, repo, fileCreator))
         }
+        println("Finish wrapping")
 
         return gitWrapperList;
+    }
+
+    @NonCPS
+    GitWrapper mapToGitWrapper(RepositoryInfo repositoryInfo) {
+        return new GitWrapper(script, parameters.workingDirectory.path, repositoryInfo)
     }
 
 }

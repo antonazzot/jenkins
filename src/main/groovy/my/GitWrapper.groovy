@@ -19,12 +19,22 @@ class GitWrapper {
     String owner
     String repository
     String branch
-    String commit
     String credentialsId
     String dir
     FileCreator fileCreator;
 
     GitWrapper(Script script, String workDir, RepositoryInfo repositoryInfo, FileCreator fileCreator) {
+        this.script = script
+        this.workDir = workDir
+        this.owner = repositoryInfo.owner
+        this.branch = repositoryInfo.branch
+        this.repository = repositoryInfo.url
+        this.credentialsId = repositoryInfo.sha
+        this.dir = workDir+"/"+owner
+        this.fileCreator = fileCreator
+    }
+
+    GitWrapper(Script script, String workDir, RepositoryInfo repositoryInfo) {
         println("checkout constract")
         this.script = script
         this.workDir = workDir
@@ -32,19 +42,13 @@ class GitWrapper {
         this.branch = repositoryInfo.branch
         this.repository = repositoryInfo.url
         this.credentialsId = repositoryInfo.sha
-        this.dir = workDir+"/"+owner+"/"+repository
-//        this.credentialsId = "psw"
-        this.fileCreator = fileCreator
+        this.dir = workDir+"/basedir"
     }
 
     @NonCPS
     void checkout() {
-        println("checkout worker")
 //        fileCreator.makeDir(dir)
         resolveCheckout()
-//        script.dir(dir) {
-//            resolveDeleteDir()
-//        }
         println("after checkout worker")
     }
 
@@ -56,8 +60,13 @@ class GitWrapper {
 
     @NonCPS
     private void resolveCheckout() {
-        println(" checkout dir ")
-//        script.sh('chmod -R 777 ' +dir)
+        println(" _________________ ")
+        println("Work dir: " + workDir)
+        println("Owner: " + owner)
+        println("Repository " + repository)
+        println("Branch: " + branch)
+        println("Rep dir: " + dir)
+
         script.checkout([
                 $class                           : 'GitSCM',
                 branches                         : [[name: "*/${branch}"]],
@@ -67,17 +76,5 @@ class GitWrapper {
                 userRemoteConfigs                : [[credentialsId: credentialsId,
                                                      url          : repository]]
         ])
-//        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/Users/Anton_Tsyrkunou/Downloads/temp/checkout']], userRemoteConfigs: [[credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/k8s.git'], [credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/WednesdayFrog1.git']]])
-//        script.checkout(
-//                [
-//                        $class: 'GitSCM',
-//                        branches: [[name: '*/main']],
-//                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/Users/Anton_Tsyrkunou/Downloads/temp/checkout']],
-//                        userRemoteConfigs: [[credentialsId: 'e0850795-67c3-4691-940c-033ab359133c',
-//                                             url: 'https://github.com/antonazzot/k8s.git'],
-//                                            [credentialsId: 'e0850795-67c3-4691-940c-033ab359133c', url: 'https://github.com/antonazzot/WednesdayFrog1.git']]])
-//                ]
-//        )
-
     }
 }

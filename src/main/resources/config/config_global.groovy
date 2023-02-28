@@ -19,7 +19,8 @@ log.info "Configuring global settings"
 log.info "Updating 'my' job configuration"
 def jobManagement = new JenkinsJobManagement(System.out, [:], new File('.'))
 def scriptLoader = new DslScriptLoader(jobManagement)
-scriptLoader.runScript(new File('/usr/share/my/my-job.groovy').text)
+scriptLoader.runScript(new File('/usr/share/my/checkout.groovy').text)
+scriptLoader.runScript(new File('/usr/share/my/plagiarism.groovy').text)
 log.info "'my' job has been successfully updated."
 
 
@@ -48,6 +49,6 @@ log.info "Configuring crumb issuer"
 Jenkins.get().setCrumbIssuer(new DefaultCrumbIssuer(true))
 
 log.info "Configuring number of executors"
-Jenkins.get().setNumExecutors(5)
+Jenkins.get().setNumExecutors(10)
 
 log.info "Finished configuring global settings"

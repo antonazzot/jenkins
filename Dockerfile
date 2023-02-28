@@ -16,12 +16,13 @@ COPY target/resources/init.groovy /usr/share/jenkins/ref/init.groovy.d/
 RUN echo "RUN  COPY GLOBAl CONFIG"
 COPY target/resources/config/*.groovy /usr/share/my/config/
 
-RUN echo "REPO CaMEL"
-COPY src/main/resources/gitcontent /usr/share/my/gitcontent/
+#RUN echo "REPO CaMEL"
+#COPY src/main/resources/gitcontent /usr/share/my/gitcontent/
 
 ### Job configuration
-RUN echo "RUN  COPY MY-JOB CONFIG"
-COPY target/resources/my-job.groovy /usr/share/my/
+RUN echo "RUN  COPY SCRIPT CONFIGS"
+COPY target/resources/checkout.groovy /usr/share/my/
+COPY target/resources/plagiarism.groovy /usr/share/my/
 
 ### Pipeline library files
 RUN echo "RUN  COPY Pipeline CONFIG"

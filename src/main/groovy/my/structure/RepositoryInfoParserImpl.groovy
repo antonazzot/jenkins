@@ -11,7 +11,7 @@ class RepositoryInfoParserImpl implements RepositoryInfoParser {
     @Override
     @NonCPS
     List<RepositoryInfo> parse(String input) {
-        println("inside parse:   " +  input)
+        println("inside parse:   " )
         List<RepositoryInfo> repositoryInfoList = new ArrayList<>();
         if (input.blank) {
             return Collections.EMPTY_LIST
@@ -27,4 +27,12 @@ class RepositoryInfoParserImpl implements RepositoryInfoParser {
         return repositoryInfoList;
     }
 
+    @NonCPS
+    RepositoryInfo parseSingle(String input) {
+        println("inside single parse:   " + input)
+
+        def split = input.split(INSIDE_DELIMETR)
+
+        return new RepositoryInfo(split[0], split[1], split[2], split[3])
+    }
 }
