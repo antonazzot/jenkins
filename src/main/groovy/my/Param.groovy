@@ -10,6 +10,7 @@ class Param {
     String gitBaseInfo
     Language language
     File workingDirectory
+    Boolean isFinished
 
     def _ = { "${it}".trim() }
 
@@ -21,12 +22,14 @@ class Param {
             this.gitInfo = _(gitInfo)
             this.gitBaseInfo = _(gitBaseInfo)
             this.language = Language.valueOf(_(language))
+            this.isFinished = _(isFinished)
         }
         this.workingDirectory = new File("/tmp/repos/${externalTaskId}")
 
         println(workingDirectory.getPath())
         println(externalTaskId)
         println(language)
+        println(isFinished.booleanValue())
     }
 
     Param(String externalTaskId, String repos, Language language) {

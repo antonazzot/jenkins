@@ -21,7 +21,7 @@ COPY target/resources/config/*.groovy /usr/share/my/config/
 
 ### Job configuration
 RUN echo "RUN  COPY SCRIPT CONFIGS"
-COPY target/resources/checkout.groovy /usr/share/my/
+COPY target/resources/obtainer.groovy /usr/share/my/
 COPY target/resources/plagiarism.groovy /usr/share/my/
 
 ### Pipeline library files

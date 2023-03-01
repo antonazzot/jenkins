@@ -1,12 +1,14 @@
 package my.reporter
 
-
+import com.fasterxml.jackson.databind.ObjectMapper
+import my.obtainer.PreparedResult
 import org.apache.commons.codec.binary.Base64
 
 class ReportSenderImpl implements my.reporter.ReportSender {
 
 
     private Script script
+    private final ObjectMapper mapper = new ObjectMapper();
 
     ReportSenderImpl(Script script) {
         this.script=script
@@ -23,12 +25,13 @@ class ReportSenderImpl implements my.reporter.ReportSender {
                 requestBody: data
     }
 
-    void sendReport(String url, String contentType, int amountOfWrappers) {
+    void sendReport(String url, String contentType, PreparedResult preparedResult) {
+        def writeObject = mapper.writeValueAsString(preparedResult)
         println("START SEND")
         script.httpRequest url: url,
                 httpMode: 'POST',
                 contentType: contentType,
                 quiet: false,
-                requestBody: amountOfWrappers.toString()
+                requestBody: writeObject
     }
 }

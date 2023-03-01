@@ -5,6 +5,7 @@ class ParamPlagiarism {
 
     String externalTaskId
     File workingDirectory
+    String obtainerWorkDir
 
     def _ = { "${it}".trim() }
 
@@ -15,6 +16,7 @@ class ParamPlagiarism {
             this.externalTaskId = _(externalTaskId)
         }
         this.workingDirectory = new File("/tmp/repos/${externalTaskId}")
+        this.obtainerWorkDir = "/var/jenkins_home/workspace/obtainer/*/tmp/repos/${externalTaskId}"
         println(externalTaskId)
     }
 

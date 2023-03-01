@@ -19,7 +19,7 @@ class PlagiarismHandler {
 
     String workDir;
 
-    final String prefix = "/var/jenkins_home/workspace/myscript/*"
+    final String prefix = "/var/jenkins_home/workspace/obtainer/*"
 
     PlagiarismHandler(Script script) {
         this.script = script
@@ -29,7 +29,7 @@ class PlagiarismHandler {
     PlagiarismHandler(ParamPlagiarism param) {
         this.script = param.script
         this.parameters = param
-        this.workDir = parameters.workingDirectory.getPath()
+        this.workDir = parameters.obtainerWorkDir
     }
 
     void check() {
@@ -37,11 +37,13 @@ class PlagiarismHandler {
 
         def language =  LanguageOption.JAVA;
 
-        println("PATH TO SCAN IS : " + prefix + workDir)
+        def String pathToScan = prefix + workDir
 
-        JPlagOptions options = new JPlagOptions(prefix + workDir, language);
+        println("PATH TO SCAN IS : " + workDir)
+
+        JPlagOptions options = new JPlagOptions(workDir, language);
         options.setMaximumNumberOfComparisons(-1);
-        options.setBaseCodeSubmissionName(workDir+"/basedir")
+        options.setBaseCodeSubmissionName("basedir")
         options.setComparisonMode(ComparisonMode.PARALLEL);
         options.setVerbosity(Verbosity.LONG);
 

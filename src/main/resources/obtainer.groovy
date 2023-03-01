@@ -4,10 +4,10 @@
  * property law. Dissemination of this information or reproduction of this material is strictly forbidden,
  * unless prior written permission is obtained from EPAM Systems, Inc
  */
-pipelineJob('checkout') {
+pipelineJob('obtainer') {
     definition {
         cps {
-            script("checkout()")
+            script("obtainer()")
         }
         logRotator {
             daysToKeep(11)
@@ -18,6 +18,7 @@ pipelineJob('checkout') {
             stringParam("gitInfo")
             stringParam("gitBaseInfo")
             choiceParam("language", ["JAVA", "TEXT"])
+            booleanParam("isFinished")
         }
     }
 }

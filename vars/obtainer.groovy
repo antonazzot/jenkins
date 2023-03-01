@@ -1,6 +1,7 @@
 import my.Checkout
 import my.GitWrapper
 import my.Param
+import my.obtainer.PreparedResult
 import my.reporter.ReportSenderImpl
 
 def call() {
@@ -10,7 +11,7 @@ def call() {
         def checkout = new Checkout(param)
         def sender = new ReportSenderImpl(this)
         List<GitWrapper> wrappers = checkout.getPreparedGitWrappers()
-//        wrappers.add(checkout.createBaseRepo())
+        wrappers.add(checkout.createBaseRepo())
 
         // checkout repos
         try {
@@ -26,7 +27,7 @@ def call() {
         }
 
         stage("Send result") {
-            sender.sendReport("http://host.docker.internal:8989/back/antiresult/checkout/${param.externalTaskId}",'TEXT_PLAIN', wrappers.size())
+            sender.sendReport("http://host.docker.internal:8989/back/antiresult/checkout/${param.externalTaskId}",'TEXT_PLAIN', new PreparedResult(param.externalTaskId, wrappers.size(), param.getFinished()))
         }
     }
 }
