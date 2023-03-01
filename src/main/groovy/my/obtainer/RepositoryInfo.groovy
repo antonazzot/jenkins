@@ -1,4 +1,4 @@
-package my.structure
+package my.obtainer
 
 class RepositoryInfo {
     String owner

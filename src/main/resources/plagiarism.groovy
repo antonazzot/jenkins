@@ -15,6 +15,7 @@ pipelineJob('plagiarism') {
         }
         parameters {
             stringParam("externalTaskId")
+            choiceParam("language", ["JAVA", "TEXT"])
         }
     }
 }

@@ -1,4 +1,4 @@
-package my.obtainer
+package my.common
 
 import groovy.json.JsonOutput
 

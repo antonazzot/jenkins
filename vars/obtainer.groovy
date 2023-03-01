@@ -1,6 +1,6 @@
-import my.Checkout
-import my.GitWrapper
-import my.Param
+import my.obtainer.Checkout
+import my.obtainer.GitWrapper
+import my.obtainer.Param
 import my.obtainer.PreparedResult
 import my.reporter.ReportSenderImpl
 
@@ -15,11 +15,11 @@ def call() {
 
         // checkout repos
         try {
-            wrappers.each {
-                wrapper ->
-                    stage(wrapper.owner) {
+            stage("Obtain for build__" + param.externalTaskId) {
+                wrappers.each {
+                    wrapper ->
                         wrapper.checkout()
-                    }
+                }
             }
         }
         catch (Exception e) {
@@ -27,7 +27,8 @@ def call() {
         }
 
         stage("Send result") {
-            sender.sendReport("http://host.docker.internal:8989/back/antiresult/checkout/${param.externalTaskId}",'TEXT_PLAIN', new PreparedResult(param.externalTaskId, wrappers.size(), param.getFinished()))
+            def data = new PreparedResult(param.externalTaskId, wrappers.size(), param.getIsFinished()).toJson()
+            sender.sendReport("http://host.docker.internal:8989/back/obtainresult/${param.externalTaskId}", 'APPLICATION_JSON', data)
         }
     }
 }

@@ -1,6 +1,6 @@
-package my.structure
+package my.common.structure.parser
 
-import my.structure.RepositoryInfo
+import my.obtainer.RepositoryInfo
 
 interface RepositoryInfoParser {
     List<RepositoryInfo> parse (String input)

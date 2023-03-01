@@ -1,4 +1,4 @@
-package my
+package my.plagiarism
 
 import de.jplag.JPlag
 
@@ -17,9 +17,7 @@ class PlagiarismHandler {
 
     ParamPlagiarism parameters
 
-    String workDir;
-
-    final String prefix = "/var/jenkins_home/workspace/obtainer/*"
+    String obtainerWorkDir;
 
     PlagiarismHandler(Script script) {
         this.script = script
@@ -29,19 +27,17 @@ class PlagiarismHandler {
     PlagiarismHandler(ParamPlagiarism param) {
         this.script = param.script
         this.parameters = param
-        this.workDir = parameters.obtainerWorkDir
+        this.obtainerWorkDir = parameters.obtainerWorkDir
     }
 
     void check() {
         println("Start check")
 
-        def language =  LanguageOption.JAVA;
+        def language =  LanguageOption.fromDisplayName(parameters.language.name())
 
-        def String pathToScan = prefix + workDir
+        println("PATH TO SCAN IS : " + obtainerWorkDir)
 
-        println("PATH TO SCAN IS : " + workDir)
-
-        JPlagOptions options = new JPlagOptions(workDir, language);
+        JPlagOptions options = new JPlagOptions(obtainerWorkDir, language);
         options.setMaximumNumberOfComparisons(-1);
         options.setBaseCodeSubmissionName("basedir")
         options.setComparisonMode(ComparisonMode.PARALLEL);
@@ -49,7 +45,7 @@ class PlagiarismHandler {
 
         JPlag jplag = new JPlag(options);
         JPlagResult result = jplag.run();
-        File reportDir = new File(workDir+"/result");
+        File reportDir = new File(parameters.workingDirectory.path+"/result");
         Report report = new Report(reportDir, options);
         report.writeResult(result);
     }

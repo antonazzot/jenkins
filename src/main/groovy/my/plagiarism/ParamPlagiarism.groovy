@@ -1,38 +1,28 @@
-package my
+package my.plagiarism
 
-import my.structure.Language
-
-class Param {
+class ParamPlagiarism {
     final Script script
 
     String externalTaskId
-    String gitInfo
-    String gitBaseInfo
     Language language
     File workingDirectory
-    Boolean isFinished
+    String obtainerWorkDir
 
     def _ = { "${it}".trim() }
 
 
-    Param(Script script) {
+    ParamPlagiarism(Script script) {
         this.script = script
         script.env.with {
             this.externalTaskId = _(externalTaskId)
-            this.gitInfo = _(gitInfo)
-            this.gitBaseInfo = _(gitBaseInfo)
             this.language = Language.valueOf(_(language))
-            this.isFinished = _(isFinished)
         }
         this.workingDirectory = new File("/tmp/repos/${externalTaskId}")
-
-        println(workingDirectory.getPath())
+        this.obtainerWorkDir = "/var/jenkins_home/workspace/obtainer/*/tmp/repos/${externalTaskId}"
         println(externalTaskId)
-        println(language)
-        println(isFinished.booleanValue())
     }
 
-    Param(String externalTaskId, String repos, Language language) {
+    ParamPlagiarism(String externalTaskId) {
         this.script = new Script() {
             @Override
             Object run() {
@@ -40,7 +30,6 @@ class Param {
             }
         }
         this.externalTaskId = externalTaskId
-        this.language = language
         this.workingDirectory = new File("/Users/Anton_Tsyrkunou/Documents/SomeProject/my-jenkins/my-jenkins/src/main/resources/gitcontent")
     }
 }

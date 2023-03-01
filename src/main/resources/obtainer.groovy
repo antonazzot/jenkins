@@ -17,8 +17,7 @@ pipelineJob('obtainer') {
             stringParam("externalTaskId")
             stringParam("gitInfo")
             stringParam("gitBaseInfo")
-            choiceParam("language", ["JAVA", "TEXT"])
-            booleanParam("isFinished")
+            stringParam("isFinished")
         }
     }
 }

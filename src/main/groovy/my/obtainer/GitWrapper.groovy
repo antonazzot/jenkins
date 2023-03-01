@@ -4,50 +4,40 @@
  * property law. Dissemination of this information or reproduction of this material is strictly forbidden,
  * unless prior written permission is obtained from EPAM Systems, Inc
  */
-package my
+package my.obtainer
 
 import com.cloudbees.groovy.cps.NonCPS
-import my.structure.FileCreator
-import my.structure.RepositoryInfo
 
 class GitWrapper {
 
-    final String prefix = "https://github.com"
-
     Script script
-    String workDir
     String owner
     String repository
     String branch
     String credentialsId
     String dir
-    FileCreator fileCreator;
 
-    GitWrapper(Script script, String workDir, RepositoryInfo repositoryInfo, FileCreator fileCreator) {
+    GitWrapper(Script script, String workDir, RepositoryInfo repositoryInfo) {
         this.script = script
-        this.workDir = workDir
         this.owner = repositoryInfo.owner
         this.branch = repositoryInfo.branch
         this.repository = repositoryInfo.url
         this.credentialsId = repositoryInfo.sha
         this.dir = workDir+"/"+owner
-        this.fileCreator = fileCreator
     }
 
-    GitWrapper(Script script, String workDir, RepositoryInfo repositoryInfo) {
+    GitWrapper(Script script, RepositoryInfo repositoryInfo, String dir) {
         println("checkout constract")
         this.script = script
-        this.workDir = workDir
         this.owner = repositoryInfo.owner
         this.branch = repositoryInfo.branch
         this.repository = repositoryInfo.url
         this.credentialsId = repositoryInfo.sha
-        this.dir = workDir+"/basedir"
+        this.dir = dir
     }
 
     @NonCPS
     void checkout() {
-//        fileCreator.makeDir(dir)
         resolveCheckout()
         println("after checkout worker")
     }
@@ -61,7 +51,6 @@ class GitWrapper {
     @NonCPS
     private void resolveCheckout() {
         println(" _________________ ")
-        println("Work dir: " + workDir)
         println("Owner: " + owner)
         println("Repository " + repository)
         println("Branch: " + branch)

@@ -5,7 +5,7 @@
  * unless prior written permission is obtained from EPAM Systems, Inc
  */
 
-package my.structure
+package my.common
 
 class RejectionException extends Exception {
 

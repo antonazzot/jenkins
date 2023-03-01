@@ -1,9 +1,3 @@
-import my.Checkout
-import my.PlagiarismHandler
-import my.structure.Language
-import my.Param
-import my.zip.ManualZipper
-
 static void main(String[] args) {
 //  println "Hello world!"
 //  String repo = "ANTONAZZOT#/antonazzot/jmp_web.git#01-start-branch#sha&antobepant#/antobepant/k8s.git#kuber-persistance-voluem#sha1"
@@ -13,9 +7,9 @@ static void main(String[] args) {
 //  antonazzot#/antonazzot/kafka-container-test.git#02-kafka-inside-docker-container#sha&antonazzot#/antonazzot/k8s.git#kuber-persistance-voluem#sha1
 //  checkout.run()
 
-  def param = new Param("taskid", "repo", Language.JAVA)
-  new PlagiarismHandler(param).checkLocal()
-  new ManualZipper().zip(param.workingDirectory.getPath())
+//  def param = new Param("taskid")
+//  new PlagiarismHandler(param).checkLocal()
+//  new ManualZipper().zip(param.workingDirectory.getPath())
 
 
 }

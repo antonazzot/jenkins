@@ -1,7 +1,8 @@
-import my.ParamPlagiarism
-import my.PlagiarismHandler
+import my.plagiarism.ParamPlagiarism
+import my.plagiarism.PlagiarismHandler
 import my.reporter.ReportSenderImpl
-import my.zip.ManualZipper
+import my.common.structure.parser.zip.ManualZipper
+import org.apache.commons.codec.binary.Base64
 
 def call() {
     node("built-in") {
@@ -17,7 +18,7 @@ def call() {
 
         try {
             stage("Write zip  with MANUALZIPPER") {
-                resultDir = param.obtainerWorkDir + "/result"
+                resultDir = param.workingDirectory.path + "/result"
                 result = new ManualZipper().zip(resultDir);
             }
         }
@@ -27,7 +28,8 @@ def call() {
 
         // Send result
         stage("Send result") {
-            sender.sendReport("http://host.docker.internal:8989/back/antiresult", resultDir, 'TEXT_PLAIN', result)
+            def data = Base64.encodeBase64String(result)
+            sender.sendReport("http://host.docker.internal:8989/back/plagiarismresult/${param.externalTaskId}", 'TEXT_PLAIN', data)
         }
     }
 }

@@ -1,4 +1,4 @@
-package my.zip
+package my.common.structure.parser.zip
 
 import com.cloudbees.groovy.cps.NonCPS
 

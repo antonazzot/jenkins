@@ -1,10 +1,11 @@
-package my.zip
+package my.common.structure.zip
 
 import com.cloudbees.groovy.cps.NonCPS
+import org.zeroturnaround.zip.ZipUtil
 
 @Grab('org.zeroturnaround:zt-zip:1.13')
 
-class ZeroturnaroundZipper implements Zipper {
+class ZeroturnaroundZipper implements my.common.structure.zip.Zipper {
 
     String outputDir;
 
@@ -23,4 +24,3 @@ class ZeroturnaroundZipper implements Zipper {
         return result
     }
 }
-import org.zeroturnaround.zip.ZipUtil

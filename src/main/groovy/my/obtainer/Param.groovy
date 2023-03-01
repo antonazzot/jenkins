@@ -1,26 +1,33 @@
-package my
+package my.obtainer
 
-class ParamPlagiarism {
+class Param {
     final Script script
 
     String externalTaskId
+    String gitInfo
+    String gitBaseInfo
     File workingDirectory
-    String obtainerWorkDir
+    String isFinished
 
     def _ = { "${it}".trim() }
 
 
-    ParamPlagiarism(Script script) {
+    Param(Script script) {
         this.script = script
         script.env.with {
             this.externalTaskId = _(externalTaskId)
+            this.gitInfo = _(gitInfo)
+            this.gitBaseInfo = _(gitBaseInfo)
+            this.isFinished = _(isFinished)
         }
         this.workingDirectory = new File("/tmp/repos/${externalTaskId}")
-        this.obtainerWorkDir = "/var/jenkins_home/workspace/obtainer/*/tmp/repos/${externalTaskId}"
+
+        println(workingDirectory.getPath())
         println(externalTaskId)
+        println(isFinished)
     }
 
-    ParamPlagiarism(String externalTaskId) {
+    Param(String externalTaskId) {
         this.script = new Script() {
             @Override
             Object run() {

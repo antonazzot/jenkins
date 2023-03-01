@@ -1,4 +1,4 @@
-package my.structure
+package my.plagiarism
 
 enum Language {
     JAVA,

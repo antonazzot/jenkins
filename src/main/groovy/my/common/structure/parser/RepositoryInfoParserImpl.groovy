@@ -1,6 +1,7 @@
-package my.structure
+package my.common.structure.parser
 
 import com.cloudbees.groovy.cps.NonCPS
+import my.obtainer.RepositoryInfo
 
 class RepositoryInfoParserImpl implements RepositoryInfoParser {
 
@@ -16,6 +17,7 @@ class RepositoryInfoParserImpl implements RepositoryInfoParser {
         if (input.blank) {
             return Collections.EMPTY_LIST
         }
+
         for (owner in input.split(OWNER_DELIMETR)) {
             def split = owner.split(INSIDE_DELIMETR)
             if (!split.empty) {
