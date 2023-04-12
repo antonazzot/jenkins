@@ -18,8 +18,7 @@ def call() {
 
         try {
             stage("Write zip  with MANUALZIPPER") {
-                resultDir = param.workingDirectory.path + "/result"
-                result = new ManualZipper().zip(resultDir);
+                result = new ManualZipper().zipToByteArray(param.workingDirectory.path + "/result.zip")
             }
         }
         catch (Exception e) {

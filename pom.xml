@@ -31,6 +31,7 @@
         <sonar.version>2.14</sonar.version>
         <workflow-cps-global-lib.version>564.ve62a_4eb_b_e039</workflow-cps-global-lib.version>
         <workflow-cps.version>2686.v7c37e0578401</workflow-cps.version>
+        <jplag>4.2.0</jplag>
     </properties>
 
     <dependencies>
@@ -111,11 +112,33 @@
             <artifactId>maven-resources-plugin</artifactId>
             <version>${maven-resources-plugin.version}</version>
         </dependency>
+
         <dependency>
             <groupId>de.jplag</groupId>
             <artifactId>jplag</artifactId>
-            <version>3.0.0</version>
+            <version>${jplag}</version>
         </dependency>
+        <dependency>
+            <groupId>de.jplag</groupId>
+            <artifactId>java</artifactId>
+            <version>${jplag}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jplag</groupId>
+            <artifactId>swift</artifactId>
+            <version>${jplag}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jplag</groupId>
+            <artifactId>kotlin</artifactId>
+            <version>${jplag}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jplag</groupId>
+            <artifactId>python-3</artifactId>
+            <version>${jplag}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

@@ -11,8 +11,6 @@ class ManualZipper implements my.common.structure.zip.Zipper {
 
     String zipFileName = "RESULT_OUTPUT.zip"
     String inputDir
-//Zip files
-
 
     @Override
     @NonCPS
@@ -36,11 +34,6 @@ class ManualZipper implements my.common.structure.zip.Zipper {
         zipFile.close()
 
         def inputStream = new FileInputStream(inputDir + zipFileName)
-//        def channel = inputStream.getChannel()
-//        def outChannel = outputStream.getChannel()
-//        channel.transferTo(0, channel.size(), outChannel)
-
-
         return inputStream.readAllBytes()
     }
 
@@ -61,36 +54,6 @@ class ManualZipper implements my.common.structure.zip.Zipper {
             }
         }
         zip.close()
-
         return buffer;
     }
-
 }
-
-
-//        ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFileName))
-//    ZipEntry zipEntry = zis.getNextEntry()
-//    while (zipEntry != null) {
-//        File newFile = new File(outputDir+ File.separator, zipEntry.name)
-//        if (zipEntry.isDirectory()) {
-//            if (!newFile.isDirectory() && !newFile.mkdirs()) {
-//                throw new IOException("Failed to create directory " + newFile)
-//            }
-//        } else {
-//            // fix for Windows-created archives
-//            File parent = newFile.parentFile
-//            if (!parent.isDirectory() && !parent.mkdirs()) {
-//                throw new IOException("Failed to create directory " + parent)
-//            }
-//            // write file content
-//            FileOutputStream fos = new FileOutputStream(newFile)
-//            int len = 0
-//            while ((len = zis.read(buffer)) > 0) {
-//                fos.write(buffer, 0, len)
-//            }
-//            fos.close()
-//        }
-//        zipEntry = zis.getNextEntry()
-//    }
-//    zis.closeEntry()
-//    zis.close()

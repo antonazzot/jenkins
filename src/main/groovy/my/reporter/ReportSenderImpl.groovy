@@ -17,5 +17,16 @@ class ReportSenderImpl implements ReportSender {
                 contentType: contentType,
                 quiet: false,
                 requestBody: data
+
+//        def json = request.toJson()
+//        println json
+//        def response = context.script.withCredentials([context.script.string(credentialsId: 'SYSTEM_AUTH_SECRET', variable: 'systemAuthSecret')]) {
+//            context.script.httpRequest url: pathToAddResource,
+//                    httpMode: 'PATCH',
+//                    contentType: 'APPLICATION_JSON',
+//                    customHeaders: [[name: 'X-System-Auth', value: context.script.env.systemAuthSecret, maskValue: true]],
+//                    requestBody: json
+//        }
+//        return response.content
     }
 }

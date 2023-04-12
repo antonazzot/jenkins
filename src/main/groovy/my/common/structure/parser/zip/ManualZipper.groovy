@@ -45,10 +45,16 @@ class ManualZipper implements Zipper {
     }
 
     @NonCPS
-    private byte[] readZipFile() {
+    byte[] zipToByteArray(String path) {
+      return new FileInputStream(path).readAllBytes()
+    }
+
+
+    @NonCPS
+    byte[] readZipFile(String path) {
         //UnZip archive
         byte[] buffer
-        def fl = new File(inputDir + zipFileName+"out.zip")
+        def fl = new File(path)
         fl.mkdirs()
         def zip = new ZipFile(fl)
         zip.entries().each {

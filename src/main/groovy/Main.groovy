@@ -1,3 +1,6 @@
+import my.plagiarism.ParamPlagiarism
+import my.plagiarism.PlagiarismHandler
+
 static void main(String[] args) {
 //  println "Hello world!"
 //  String repo = "ANTONAZZOT#/antonazzot/jmp_web.git#01-start-branch#sha&antobepant#/antobepant/k8s.git#kuber-persistance-voluem#sha1"
@@ -10,6 +13,10 @@ static void main(String[] args) {
 //  def param = new Param("taskid")
 //  new PlagiarismHandler(param).checkLocal()
 //  new ManualZipper().zip(param.workingDirectory.getPath())
+
+    def plagiarism = new ParamPlagiarism("dlns")
+    PlagiarismHandler plagiarismHandler = new PlagiarismHandler(plagiarism)
+    plagiarismHandler.check()
 
 
 }
